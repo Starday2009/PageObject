@@ -1,5 +1,6 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 public class Header {
 
@@ -10,6 +11,7 @@ public class Header {
     By boards = By.xpath(".//*[@id='find_link']");
     By testRail = By.xpath(".//*[@id='menu']");
     By burgerMenu =By.xpath(".//*[@id='header']/nav/div/div[1]/a");
+    By search = By.xpath(".//*[@id='quickSearchInput']");
 
     private final WebDriver driver;
 
@@ -44,6 +46,17 @@ public class Header {
     }
     public Header clickburgerMenu(){
         driver.findElement(burgerMenu).click();
+        return this;
+    }
+    public Header clickSearch(){
+        driver.findElement(search).click();
+        return this;
+    }
+    public Header typeFind(String find){
+        WebElement element = driver.findElement(search);
+        element.sendKeys(find);
+        element.submit();
+      //  driver.findElement(search).sendKeys(find);
         return this;
     }
 

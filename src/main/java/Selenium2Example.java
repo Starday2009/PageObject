@@ -14,6 +14,7 @@ public class Selenium2Example {
         LoginPage loginPage;
         WebDriver driver;
         Header header;
+        TaskPage taskPage;
         @BeforeTest
                 public void before() {
             System.setProperty("webdriver.gecko.driver", "C:\\Selenium\\geckodriver.exe");
@@ -23,22 +24,26 @@ public class Selenium2Example {
             driver = new FirefoxDriver(capabilities);
             loginPage = new LoginPage(driver);
             header = new Header(driver);
+            taskPage = new TaskPage(driver);
         }
 
         @Test(groups = {"functest", "login"})
-        public void login(){
+        public void login() throws InterruptedException {
             loginPage.open();
             loginPage.typeUsername("oksana.gorbachenko.2009");
             loginPage.typePassword("123456qwerty");
             loginPage.clickOnLogin();
-            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-            header.clickCreate();
-
-            try {
-                Thread.sleep(5000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            Thread.sleep(4000);
+            //driver.manage().timeouts().implicitlyWait(50, TimeUnit.SECONDS);
+            header.clickSearch();
+            header.typeFind("QAAUT-60");
+            Thread.sleep(4000);
+            taskPage.clickAddSub();
+            Thread.sleep(3000);
+            taskPage.typeSummary("Oks sub task");
+            taskPage.clickAssign();
+            taskPage.clickSubmit();
+            Thread.sleep(5000);
 
         }
      // @AfterTest
